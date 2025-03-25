@@ -2,7 +2,6 @@ import '~/styles/globals.css';
 
 import type { Metadata } from 'next';
 import { Alice, Playfair_Display } from 'next/font/google';
-
 import { TRPCReactProvider } from '~/trpc/react';
 
 export const metadata: Metadata = {
@@ -53,7 +52,7 @@ const alice = Alice({
 
 export default ({ children }: React.PropsWithChildren) => {
     return (
-        <html lang={'en'} className={`${playfairDisplay.variable} ${alice.variable}`}>
+        <html lang={'en'} className={`${playfairDisplay.variable} ${alice.variable} font-default`}>
             <body>
                 <TRPCReactProvider>{children}</TRPCReactProvider>
             </body>
