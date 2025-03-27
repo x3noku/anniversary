@@ -1,0 +1,16 @@
+.shadow {
+    --shadow-x-offset: 0px;
+    --shadow-y-offset: 0px;
+
+    --shadow-blur: 256px;
+    --shadow-stretch: 256px;
+
+    -webkit-box-shadow: var(--shadow-x-offset) var(--shadow-y-offset)
+        var(--shadow-blur) var(--shadow-stretch)
+        var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    -moz-box-shadow: var(--shadow-x-offset) var(--shadow-y-offset)
+        var(--shadow-blur) var(--shadow-stretch)
+        var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    box-shadow: var(--shadow-x-offset) var(--shadow-y-offset) var(--shadow-blur)
+        var(--shadow-stretch) var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+}

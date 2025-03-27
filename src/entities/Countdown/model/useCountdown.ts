@@ -1,17 +1,21 @@
 import { addSeconds } from 'date-fns/addSeconds';
 import { isAfter } from 'date-fns/isAfter';
 import { useEffect, useMemo, useState } from 'react';
-import { targetDate } from '../config/targetDate';
+import { env } from '~/env';
 
 type UseCountdownOpts = {
     onReady?: () => void;
 };
 
+const targetDate = env.NEXT_PUBLIC_TARGET_DATE;
+
 const useTarget = () => {
     return useMemo(() => {
         const date = new Date();
 
-        if (isAfter(date, targetDate) || true) return addSeconds(date, 5).getTime();
+        if (isAfter(date, targetDate) || env.NEXT_PUBLIC_DEBUG_COUNTDOWN) {
+            return addSeconds(date, env.NEXT_PUBLIC_COUNTDOWN_EXPIRE_OFFSET).getTime();
+        }
 
         return targetDate.getTime();
     }, []);
@@ -20,7 +24,7 @@ const useTarget = () => {
 export const useCountdown = ({ onReady }: UseCountdownOpts) => {
     const [isReady, setIsReady] = useState(false);
     const target = useTarget();
-    const [seconds, setSeconds] = useState(Math.floor((target - Date.now()) / 1000));
+    const [countdown, setCountdown] = useState(Math.floor((target - Date.now()) / 1000));
 
     useEffect(() => {
         if (isReady) return;
@@ -28,9 +32,9 @@ export const useCountdown = ({ onReady }: UseCountdownOpts) => {
         const interval = setInterval(() => {
             const newSeconds = Math.floor((target - Date.now()) / 1000);
 
-            if (newSeconds > 0) return setSeconds(newSeconds);
+            if (newSeconds > 0) return setCountdown(newSeconds);
 
-            setSeconds(0);
+            setCountdown(0);
             setIsReady(true);
             onReady?.();
         }, 1000);
@@ -38,5 +42,14 @@ export const useCountdown = ({ onReady }: UseCountdownOpts) => {
         return () => clearInterval(interval);
     }, [target, isReady, onReady]);
 
-    return seconds;
+    const hours = Math.floor((countdown % 3600) / 360);
+    const minutes = Math.floor((countdown % 3600) / 60);
+    const seconds = countdown % 60;
+
+    return {
+        hours,
+        minutes,
+        seconds,
+        countdown,
+    };
 };
