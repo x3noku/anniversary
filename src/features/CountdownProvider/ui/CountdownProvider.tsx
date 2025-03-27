@@ -29,9 +29,15 @@ const CountdownProvider: React.FC<CountdownProviderProps> = ({ children }) => {
                         exit={{ opacity: 0 }}
                         transition={{ delay: 1 }}
                     >
+                        <span className={'absolute top-24 text-center'}>
+                            <h1 className={'font-heading font-semibold text-5xl'}>Anniversary</h1>
+                            <h3 className={'mt-4 text-lg'}>Celebrating our love on March 29, 2025</h3>
+                            <h5 className={'text-stone-500 text-xs leading-none'}>Almost March 26</h5>
+                        </span>
+
                         <NumberFlowGroup>
                             <span
-                                className={'flex flex-row items-baseline pb-8 text-6xl'}
+                                className={'flex flex-row items-baseline text-6xl'}
                                 style={{ fontVariantNumeric: 'tabular-nums', '--number-flow-char-height': '0.85em' }}
                             >
                                 {hours > 0 && (
