@@ -14,23 +14,23 @@ const useTarget = () => {
         const date = new Date();
 
         if (isAfter(date, targetDate) || env.NEXT_PUBLIC_DEBUG_COUNTDOWN) {
-            return addSeconds(date, env.NEXT_PUBLIC_COUNTDOWN_EXPIRE_OFFSET).getTime();
+            return addSeconds(date, env.NEXT_PUBLIC_COUNTDOWN_EXPIRE_OFFSET);
         }
 
-        return targetDate.getTime();
+        return targetDate;
     }, []);
 };
 
 export const useCountdown = ({ onReady }: UseCountdownOpts) => {
     const [isReady, setIsReady] = useState(false);
     const target = useTarget();
-    const [countdown, setCountdown] = useState(Math.floor((target - Date.now()) / 1000));
+    const [countdown, setCountdown] = useState(Math.floor((target.getTime() - Date.now()) / 1000));
 
     useEffect(() => {
         if (isReady) return;
 
         const interval = setInterval(() => {
-            const newSeconds = Math.floor((target - Date.now()) / 1000);
+            const newSeconds = Math.floor((target.getTime() - Date.now()) / 1000);
 
             if (newSeconds > 0) return setCountdown(newSeconds);
 
@@ -48,6 +48,7 @@ export const useCountdown = ({ onReady }: UseCountdownOpts) => {
     const seconds = countdown % 60;
 
     return {
+        target,
         days,
         hours,
         minutes,

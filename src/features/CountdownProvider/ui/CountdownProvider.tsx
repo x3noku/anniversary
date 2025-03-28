@@ -7,6 +7,7 @@ import { formatPlural } from '~/shared/lib/format';
 import { useIsClient } from '~/shared/lib/hooks';
 import { useConfetti } from '../lib/useConfetti';
 import { useIsShown } from '../lib/useIsShown';
+import { formatDate } from 'date-fns/format';
 
 type CountdownProviderProps = React.PropsWithChildren;
 
@@ -14,7 +15,7 @@ const CountdownProvider: React.FC<CountdownProviderProps> = ({ children }) => {
     const isClient = useIsClient();
 
     const confetti = useConfetti();
-    const { days, hours, minutes, seconds, countdown } = useCountdown({ onReady: confetti });
+    const { target, days, hours, minutes, seconds, countdown } = useCountdown({ onReady: confetti });
     const isShown = useIsShown(countdown);
 
     if (!isClient) return null;
@@ -32,7 +33,9 @@ const CountdownProvider: React.FC<CountdownProviderProps> = ({ children }) => {
                     >
                         <span className={'absolute top-24 text-center'}>
                             <h1 className={'font-heading font-semibold text-5xl'}>Anniversary</h1>
-                            <h3 className={'mt-4 text-lg'}>Celebrating our love on March 29, 2025</h3>
+                            <h3 className={'mt-4 text-lg'}>
+                                Celebrating our love on {formatDate(target, 'MMMM d, y')}
+                            </h3>
                             <h5 className={'text-stone-500 text-xs leading-none'}>Almost March 26</h5>
                         </span>
 
