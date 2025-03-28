@@ -42,11 +42,13 @@ export const useCountdown = ({ onReady }: UseCountdownOpts) => {
         return () => clearInterval(interval);
     }, [target, isReady, onReady]);
 
-    const hours = Math.floor((countdown % 3600) / 360);
+    const days = Math.floor(countdown / (24 * 3600));
+    const hours = Math.floor((countdown % (24 * 3600)) / 3600);
     const minutes = Math.floor((countdown % 3600) / 60);
     const seconds = countdown % 60;
 
     return {
+        days,
         hours,
         minutes,
         seconds,

@@ -3,6 +3,7 @@
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCountdown } from '~/entities/Countdown';
+import { formatPlural } from '~/shared/lib/format';
 import { useIsClient } from '~/shared/lib/hooks';
 import { useConfetti } from '../lib/useConfetti';
 import { useIsShown } from '../lib/useIsShown';
@@ -13,7 +14,7 @@ const CountdownProvider: React.FC<CountdownProviderProps> = ({ children }) => {
     const isClient = useIsClient();
 
     const confetti = useConfetti();
-    const { hours, minutes, seconds, countdown } = useCountdown({ onReady: confetti });
+    const { days, hours, minutes, seconds, countdown } = useCountdown({ onReady: confetti });
     const isShown = useIsShown(countdown);
 
     if (!isClient) return null;
@@ -35,30 +36,40 @@ const CountdownProvider: React.FC<CountdownProviderProps> = ({ children }) => {
                             <h5 className={'text-stone-500 text-xs leading-none'}>Almost March 26</h5>
                         </span>
 
-                        <NumberFlowGroup>
-                            <span
-                                className={'flex flex-row items-baseline text-6xl'}
-                                style={{ fontVariantNumeric: 'tabular-nums', '--number-flow-char-height': '0.85em' }}
-                            >
-                                {hours > 0 && (
-                                    <NumberFlow trend={-1} value={hours} format={{ minimumIntegerDigits: 2 }} />
-                                )}
-                                <NumberFlow
-                                    prefix={hours > 0 ? ':' : undefined}
-                                    trend={-1}
-                                    value={minutes}
-                                    digits={{ 1: { max: 5 } }}
-                                    format={{ minimumIntegerDigits: 2 }}
-                                />
-                                <NumberFlow
-                                    prefix={':'}
-                                    trend={-1}
-                                    value={seconds}
-                                    digits={{ 1: { max: 5 } }}
-                                    format={{ minimumIntegerDigits: 2 }}
-                                />
-                            </span>
-                        </NumberFlowGroup>
+                        <span className={'text-center'}>
+                            {days > 0 && (
+                                <p className={'text-2xl'}>
+                                    {days} {formatPlural(days, { one: 'day', twoToFour: 'days', many: 'days' })}
+                                </p>
+                            )}
+                            <NumberFlowGroup>
+                                <p
+                                    className={'flex flex-row items-baseline text-6xl'}
+                                    style={{
+                                        fontVariantNumeric: 'tabular-nums',
+                                        '--number-flow-char-height': '0.85em',
+                                    }}
+                                >
+                                    {hours > 0 && (
+                                        <NumberFlow trend={-1} value={hours} format={{ minimumIntegerDigits: 2 }} />
+                                    )}
+                                    <NumberFlow
+                                        prefix={hours > 0 ? ':' : undefined}
+                                        trend={-1}
+                                        value={minutes}
+                                        digits={{ 1: { max: 5 } }}
+                                        format={{ minimumIntegerDigits: 2 }}
+                                    />
+                                    <NumberFlow
+                                        prefix={':'}
+                                        trend={-1}
+                                        value={seconds}
+                                        digits={{ 1: { max: 5 } }}
+                                        format={{ minimumIntegerDigits: 2 }}
+                                    />
+                                </p>
+                            </NumberFlowGroup>
+                        </span>
                     </motion.div>
                 )}
             </AnimatePresence>
