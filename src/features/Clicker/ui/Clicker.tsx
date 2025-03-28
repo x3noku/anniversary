@@ -1,12 +1,18 @@
 'use client';
 
 import * as motion from 'motion/react-client';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Heart } from '~/entities/Heart';
 
-const size = 288;
+type ClickerProps = {
+    size: number;
+    redirect: string;
+};
 
-const Clicker: React.FC = () => {
+const Clicker: React.FC<ClickerProps> = ({ size, redirect }) => {
+    const router = useRouter();
+
     const [scale, setScale] = useState(1);
 
     useEffect(() => {
@@ -17,8 +23,8 @@ const Clicker: React.FC = () => {
 
         if (scaledSize < maxSize) return;
 
-        console.log('take action');
-    }, [scale]);
+        router.push(redirect);
+    }, [size, redirect, router.push, scale]);
 
     return (
         <motion.button
