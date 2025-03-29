@@ -1,13 +1,13 @@
 'use client';
 
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react';
+import { formatDate } from 'date-fns/format';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCountdown } from '~/entities/Countdown';
 import { formatPlural } from '~/shared/lib/format';
 import { useIsClient } from '~/shared/lib/hooks';
 import { useConfetti } from '../lib/useConfetti';
 import { useIsShown } from '../lib/useIsShown';
-import { formatDate } from 'date-fns/format';
 
 type CountdownProviderProps = React.PropsWithChildren;
 

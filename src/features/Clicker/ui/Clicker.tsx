@@ -28,6 +28,7 @@ const Clicker: React.FC<ClickerProps> = ({ size, redirect }) => {
 
     return (
         <motion.button
+            className={'cursor-pointer select-none'}
             animate={{ scale }}
             transition={{ type: 'spring', duration: 0.4, repeatDelay: 1 }}
             whileTap={{ scale: scale * 0.9 }}
