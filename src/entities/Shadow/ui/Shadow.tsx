@@ -6,7 +6,7 @@ const Shadow: React.FC = memo(() => {
     return (
         <div
             className={cn(
-                '-z-10 absolute inset-0 h-lvh w-screen overflow-hidden',
+                '-z-10 fixed inset-0 h-lvh w-screen overflow-hidden',
                 'pointer-events-none flex flex-col items-center',
             )}
         >

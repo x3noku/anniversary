@@ -55,7 +55,7 @@ const alice = Alice({
 export default ({ children }: React.PropsWithChildren) => {
     return (
         <html lang={'en'} className={`${playfairDisplay.variable} ${alice.variable} font-default`}>
-            <body className={'min-h-svh bg-gradient-to-b from-stone-50 to-pink-100'}>
+            <body className={'h-lvh overflow-hidden bg-gradient-to-b from-stone-50 to-pink-100'}>
                 <TRPCReactProvider>
                     <CountdownProvider>{children}</CountdownProvider>
                 </TRPCReactProvider>
