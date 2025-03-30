@@ -5,7 +5,7 @@ const Gallery: React.FC = () => {
     return (
         <ul className={'flex flex-col items-center'}>
             {items.map(item => (
-                <Card key={item.href} {...item} />
+                <Card key={item.src} {...item} />
             ))}
         </ul>
     );
