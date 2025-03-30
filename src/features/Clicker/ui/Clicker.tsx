@@ -1,6 +1,6 @@
 'use client';
 
-import * as motion from 'motion/react-client';
+import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Heart } from '~/entities/Heart';
