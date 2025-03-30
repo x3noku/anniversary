@@ -21,21 +21,28 @@ const cardVariants: Variants = {
     },
 };
 
-const hue = (h: number) => `hsl(${h}, 100%, 50%)`;
+const hue = (h: number) => `hsl(${h}, 100%, 60%)`;
 
 export type CardProps = {
-    src: string;
-
     title: string;
     description: React.ReactNode;
 
     hueA: number;
     hueB: number;
-};
+} & (
+    | {
+          src: string;
+          cover?: never;
+      }
+    | {
+          src?: never;
+          cover: React.ReactNode;
+      }
+);
 
-const Card: React.FC<CardProps> = ({ src, title, description, hueA, hueB }) => {
+const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB }) => {
     const [textMode, toggleTextMode] = useToggle(false);
-    const background = `linear-gradient(306deg, ${hue(hueA)}, ${hue(hueB)})`;
+    const background = `linear-gradient(235deg, ${hue(hueA)}, ${hue(hueB)})`;
 
     return (
         <motion.li
@@ -51,6 +58,7 @@ const Card: React.FC<CardProps> = ({ src, title, description, hueA, hueB }) => {
                 className={'h-72 w-64'}
                 style={{ transformOrigin: '10% 60%' }}
                 variants={cardVariants}
+                tabIndex={-1}
             >
                 <div
                     className={cn(
@@ -60,13 +68,24 @@ const Card: React.FC<CardProps> = ({ src, title, description, hueA, hueB }) => {
                         textMode ? 'rotate-x-45 rotate-y-180 rotate-z-12' : 'rotate-x-0 rotate-y-0 rotate-z-0',
                     )}
                 >
-                    <div className={'relative size-full overflow-hidden rounded-2xl'}>
-                        <Image src={src} className={'z-10 object-cover'} fill alt={''} />
-                        <div
-                            className={
-                                'absolute z-30 size-full bg-gradient-to-b from-60% from-transparent to-stone-900/40'
-                            }
-                        />
+                    <div
+                        className={cn(
+                            'relative overflow-hidden ',
+                            'size-full rounded-2xl bg-gradient-to-b from-stone-200 to-stone-300',
+                            'flex flex-col items-center justify-center gap-y-2 px-4 py-6',
+                        )}
+                    >
+                        {cover}
+                        {src !== undefined && (
+                            <>
+                                <Image src={src} className={'z-10 object-cover'} fill alt={''} />
+                                <div
+                                    className={
+                                        'absolute z-30 size-full bg-gradient-to-b from-60% from-transparent to-stone-900/40'
+                                    }
+                                />
+                            </>
+                        )}
                     </div>
                 </div>
                 <div
@@ -84,7 +103,7 @@ const Card: React.FC<CardProps> = ({ src, title, description, hueA, hueB }) => {
                         )}
                     >
                         <h5 className={'font-heading font-semibold text-xl'}>{title}</h5>
-                        <span className={'text-sm text-stone-800'}>{description}</span>
+                        <span className={'text-balance text-sm text-stone-500'}>{description}</span>
                     </div>
                 </div>
             </motion.button>

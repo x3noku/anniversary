@@ -4,8 +4,8 @@ import { Card } from './Card';
 const Gallery: React.FC = () => {
     return (
         <ul className={'flex flex-col items-center'}>
-            {items.map(item => (
-                <Card key={item.src} {...item} />
+            {items.map((item, index) => (
+                <Card key={index.toString()} {...item} />
             ))}
         </ul>
     );
