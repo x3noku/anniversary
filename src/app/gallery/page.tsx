@@ -5,6 +5,7 @@ import { env } from '~/env';
 import redTile from '~/public/assets/red-tile.png';
 import type { SearchParams } from '~/shared/lib/types';
 import { Redirect } from '~/shared/ui/redirect';
+import { Gallery } from '~/widgets/Gallery';
 
 export default async ({ searchParams }: SearchParams<{ transition?: string }>) => {
     const { transition } = await searchParams;
@@ -33,6 +34,7 @@ export default async ({ searchParams }: SearchParams<{ transition?: string }>) =
                         </h3>
                         <h5 className={'text-stone-500 text-xs leading-none'}>Almost March 26</h5>
                     </span>
+                    <Gallery />
                 </main>
             )}
         </>
