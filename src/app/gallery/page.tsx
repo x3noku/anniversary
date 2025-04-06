@@ -1,5 +1,5 @@
 import { formatDate } from 'date-fns/format';
-import { motion } from 'motion/react';
+import * as motion from 'motion/react-client';
 import Image from 'next/image';
 import { env } from '~/env';
 import redTile from '~/public/assets/red-tile.png';
