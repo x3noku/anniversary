@@ -53,7 +53,7 @@ const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB 
         >
             <div className={'absolute inset-x-0 bottom-0 h-40 w-full'} style={{ clipPath, background }} />
 
-            <motion.button
+            <motion.div
                 onClick={toggleTextMode}
                 className={'h-72 w-64'}
                 style={{ transformOrigin: '10% 60%' }}
@@ -106,7 +106,7 @@ const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB 
                         <span className={'text-balance text-sm text-stone-500'}>{description}</span>
                     </div>
                 </div>
-            </motion.button>
+            </motion.div>
         </motion.li>
     );
 };
