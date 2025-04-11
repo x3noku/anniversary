@@ -70,7 +70,7 @@ const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB 
                 >
                     <div
                         className={cn(
-                            'relative overflow-hidden ',
+                            'relative overflow-hidden',
                             'size-full rounded-2xl bg-gradient-to-b from-stone-200 to-stone-300',
                             'flex flex-col items-center justify-center gap-y-2 px-4 py-6',
                         )}

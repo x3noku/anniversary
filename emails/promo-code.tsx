@@ -52,9 +52,9 @@ export const PromoCodeEmail: React.FC<PromoCodeEmailProps> & { PreviewProps: Pro
                                     className={'mx-auto my-1.5 w-36'}
                                 />
                                 <Link
-                                    href={`${baseUrl}/gift?promo=${promo}`}
+                                    href={`${baseUrl}/promo?value=${promo}`}
                                     className={'my-0 text-sm'}
-                                >{`${baseUrl}/gift`}</Link>
+                                >{`${baseUrl}/promo`}</Link>
                             </Container>
 
                             <Img src={`${baseUrl}/text/2025.png`} className={'mx-auto mt-24 mb-6 w-7'} />
