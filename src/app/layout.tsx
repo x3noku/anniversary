@@ -2,10 +2,10 @@ import '~/styles/globals.css';
 
 import type { Metadata } from 'next';
 import { Alice, Playfair_Display, Poppins } from 'next/font/google';
+import { Suspense } from 'react';
 import { Shadow } from '~/entities/Shadow';
 import { CountdownProvider } from '~/features/CountdownProvider';
 import { TRPCReactProvider } from '~/trpc/react';
-import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'Anniversary',
