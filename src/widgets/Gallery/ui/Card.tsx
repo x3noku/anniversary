@@ -50,6 +50,7 @@ const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB 
 
     return (
         <motion.li
+            lang={'ru'}
             className={'relative flex w-80 items-center justify-center overflow-hidden pt-4'}
             initial={'offscreen'}
             whileInView={'onscreen'}
@@ -109,7 +110,7 @@ const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB 
                         )}
                     >
                         <h5 className={'font-heading font-semibold text-xl'}>{title}</h5>
-                        <span className={'text-balance text-sm text-stone-500'}>{description}</span>
+                        <span className={'hyphens-auto text-sm text-stone-500'}>{description}</span>
                     </div>
                 </div>
             </motion.div>
