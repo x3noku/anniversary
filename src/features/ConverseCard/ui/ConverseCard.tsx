@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useRotationTransform } from '~/entities/Rotation';
+import { env } from '~/env';
 import { cn } from '~/lib/utils';
 import converseShadow from '~/public/assets/converse-shadow.png';
 
@@ -28,13 +29,15 @@ const ConverseCard: React.FC = () => {
                     <div
                         className={'translate-z-8 absolute inset-0 m-auto flex size-fit flex-col items-center gap-y-8'}
                     >
-                        <Image
-                            src={converseShadow.src}
-                            width={converseShadow.width}
-                            height={converseShadow.height}
-                            className={'size-72'}
-                            alt={''}
-                        />
+                        <a href={env.NEXT_PUBLIC_POIZON_URL} target={'_blank'} rel={'noreferrer'}>
+                            <Image
+                                src={converseShadow.src}
+                                width={converseShadow.width}
+                                height={converseShadow.height}
+                                className={'size-72'}
+                                alt={''}
+                            />
+                        </a>
                         <p className={'-translate-y-16 text-xl'}>Converse 1970s All Star</p>
                     </div>
                 </div>
