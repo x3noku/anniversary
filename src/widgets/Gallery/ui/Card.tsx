@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { cn } from '~/lib/utils';
 import { useToggle } from '~/shared/lib/hooks';
 import { clipPath } from '../config/clipPath';
+import { useMemo } from 'react';
+import { getOS } from '~/shared/lib/user-agent';
 
 const cardVariants: Variants = {
     offscreen: {
@@ -41,6 +43,8 @@ export type CardProps = {
 );
 
 const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB }) => {
+    const os = useMemo(() => getOS(), []);
+
     const [textMode, toggleTextMode] = useToggle(false);
     const background = `linear-gradient(235deg, ${hue(hueA)}, ${hue(hueB)})`;
 
@@ -64,8 +68,10 @@ const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB 
                     className={cn(
                         'bg-gradient-to-b from-stone-50 to-stone-200 shadow-xl',
                         'absolute inset-0 size-full rounded-3xl p-2',
-                        'backface-hidden transition-transform duration-700',
-                        textMode ? 'rotate-x-45 rotate-y-180 rotate-z-12' : 'rotate-x-0 rotate-y-0 rotate-z-0',
+                        'backface-hidden transition-transform duration-1000',
+                        textMode && os === 'iOS' && '-rotate-x-45 rotate-y-180 rotate-z-12',
+                        textMode && os !== 'iOS' && 'rotate-x-45 rotate-y-180 rotate-z-12',
+                        !textMode && 'rotate-x-0 rotate-y-0 rotate-z-0',
                     )}
                 >
                     <div
@@ -92,7 +98,7 @@ const Card: React.FC<CardProps> = ({ src, cover, title, description, hueA, hueB 
                     className={cn(
                         'bg-gradient-to-b from-stone-50 to-stone-200 shadow-xl',
                         'absolute inset-0 size-full rounded-3xl p-2',
-                        'backface-hidden transition-transform duration-700',
+                        'backface-hidden transition-transform duration-1000',
                         textMode ? '-rotate-y-0 rotate-x-0 rotate-z-0' : '-rotate-y-180 rotate-x-45 rotate-z-12',
                     )}
                 >
