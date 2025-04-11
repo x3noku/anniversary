@@ -1,16 +1,22 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useRotationTransform } from '~/entities/Rotation';
+import { useRotationPermission, useRotationTransform } from '~/entities/Rotation';
 import { env } from '~/env';
 import { cn } from '~/lib/utils';
 import converseShadow from '~/public/assets/converse-shadow.png';
+import { Button } from '~/shared/ui/button';
 
-const ConverseCard: React.FC = () => {
+type ConverseCardProps = {
+    blur?: boolean;
+};
+
+const ConverseCard: React.FC<ConverseCardProps> = ({ blur }) => {
     const transform = useRotationTransform();
 
     return (
-        <div className={'perspective-midrange absolute'}>
+        <div className={cn('perspective-midrange absolute transition-all duration-500', blur && 'blur-xs')}>
             <div
                 className={'transform-3d h-96 w-72'}
                 style={{
@@ -29,12 +35,17 @@ const ConverseCard: React.FC = () => {
                     <div
                         className={'translate-z-8 absolute inset-0 m-auto flex size-fit flex-col items-center gap-y-8'}
                     >
-                        <a href={env.NEXT_PUBLIC_POIZON_URL} target={'_blank'} rel={'noreferrer'}>
+                        <a
+                            href={env.NEXT_PUBLIC_POIZON_URL}
+                            className={cn(' transition-all duration-500', blur && 'pointer-events-none blur-sm')}
+                            target={'_blank'}
+                            rel={'noreferrer'}
+                        >
                             <Image
                                 src={converseShadow.src}
                                 width={converseShadow.width}
                                 height={converseShadow.height}
-                                className={'size-72'}
+                                className={cn('size-72 transition-all duration-500', blur && 'blur-2xl')}
                                 alt={''}
                             />
                         </a>
@@ -47,4 +58,18 @@ const ConverseCard: React.FC = () => {
 };
 ConverseCard.displayName = 'ConverseCard';
 
-export default ConverseCard;
+export default () => {
+    const [granted, request] = useRotationPermission();
+    const { isPending, mutate } = useMutation({ mutationFn: request });
+
+    return (
+        <>
+            {!granted && (
+                <Button onClick={() => mutate()} className={'absolute z-50 text-xl'} loading={isPending}>
+                    Выдать разрешение
+                </Button>
+            )}
+            <ConverseCard blur={!granted} />
+        </>
+    );
+};

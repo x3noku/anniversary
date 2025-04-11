@@ -1,1 +1,1 @@
-export { useRotationTransform } from './model/useRotationTransform';
+export { useRotationPermission, useRotationTransform } from './model/useRotationTransform';

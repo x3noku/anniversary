@@ -1,8 +1,8 @@
 import { formatDate } from 'date-fns/format';
 import { ArrowRightIcon } from 'lucide-react';
+import Form from 'next/form';
 import { env } from '~/env';
 import type { SearchParams } from '~/shared/lib/types';
-import Form from 'next/form';
 
 export default async ({ searchParams }: SearchParams<{ value?: string }>) => {
     const { value } = await searchParams;

@@ -1,6 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLocalStorage } from '~/shared/lib/hooks';
+
+interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
+    requestPermission?: () => Promise<'granted' | 'denied'>;
+}
+
+export const useRotationPermission = () => {
+    const requestPermission = (DeviceOrientationEvent as unknown as DeviceOrientationEventiOS).requestPermission;
+
+    const [granted, setGranted] = useLocalStorage<boolean>(
+        'permission-granted',
+        typeof requestPermission !== 'function',
+    );
+
+    const request = useCallback(async () => {
+        if (!requestPermission) return;
+
+        const response = await requestPermission();
+        setGranted(response === 'granted');
+    }, [requestPermission, setGranted]);
+
+    return useMemo(() => [granted, request] as const, [granted, request]);
+};
 
 export const useRotationTransform = () => {
     const [rotationX, setRotationX] = useState(0);

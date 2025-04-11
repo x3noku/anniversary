@@ -1,8 +1,8 @@
 import { formatDate } from 'date-fns/format';
-import { env } from '~/env';
-import type { SearchParams } from '~/shared/lib/types';
-import { ConverseCard } from '~/features/ConverseCard';
 import { redirect } from 'next/navigation';
+import { env } from '~/env';
+import { ConverseCard } from '~/features/ConverseCard';
+import type { SearchParams } from '~/shared/lib/types';
 
 export default async ({ searchParams }: SearchParams<{ promo?: string }>) => {
     const { promo } = await searchParams;
