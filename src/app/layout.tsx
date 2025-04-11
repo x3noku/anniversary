@@ -5,6 +5,7 @@ import { Alice, Playfair_Display, Poppins } from 'next/font/google';
 import { Shadow } from '~/entities/Shadow';
 import { CountdownProvider } from '~/features/CountdownProvider';
 import { TRPCReactProvider } from '~/trpc/react';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'Anniversary',
@@ -63,9 +64,11 @@ export default ({ children }: React.PropsWithChildren) => {
     return (
         <html lang={'en'} className={`${playfairDisplay.variable} ${alice.variable} ${poppins.variable} font-alice`}>
             <body className={'h-lvh overflow-hidden bg-gradient-to-b from-stone-50 to-pink-100 text-stone-950'}>
-                <TRPCReactProvider>
-                    <CountdownProvider>{children}</CountdownProvider>
-                </TRPCReactProvider>
+                <Suspense>
+                    <TRPCReactProvider>
+                        <CountdownProvider>{children}</CountdownProvider>
+                    </TRPCReactProvider>
+                </Suspense>
                 <Shadow />
             </body>
         </html>
